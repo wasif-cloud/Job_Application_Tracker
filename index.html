@@ -4441,6 +4441,8 @@
       DOCUMENTS: 'jobtracker_documents',
       SETTINGS: 'jobtracker_settings',
       ONBOARDED: 'jobtracker_onboarded',
+      ONBOARDING_SKIP_COUNT: 'jobtracker_onboarding_skip_count',
+      ONBOARDING_COMPLETED: 'jobtracker_onboarding_completed',
       RESUME_POINTS: 'jobtracker_resume_points',
       RESUME_CATEGORIES: 'jobtracker_resume_categories',
       CALENDAR_ENTRIES: 'jobtracker_calendar_entries'
@@ -5285,7 +5287,166 @@
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-        alert('Data exported successfully!');
+
+        // Show custom success modal instead of browser alert
+        this.showExportSuccessModal();
+      },
+
+      showExportSuccessModal() {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
+        modal.innerHTML = `
+          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Data Exported Successfully!</div>
+            <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Your complete application data has been downloaded as a JSON file.</div>
+            <button class="modal-ok" style="background: var(--primary); color: white; border: 0; padding: 12px 32px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">OK</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        const closeModal = () => {
+          document.body.removeChild(modal);
+        };
+
+        modal.querySelector('.modal-ok').addEventListener('click', closeModal);
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+        // Close on background click
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
+      },
+
+      showImportErrorModal() {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
+        modal.innerHTML = `
+          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <div style="font-size: 48px; margin-bottom: 16px;">❌</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Invalid JSON File</div>
+            <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">The file you selected is not a valid JSON file. Please ensure it was exported from this application.</div>
+            <button class="modal-ok" style="background: var(--primary); color: white; border: 0; padding: 12px 32px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">OK</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        const closeModal = () => {
+          document.body.removeChild(modal);
+        };
+
+        modal.querySelector('.modal-ok').addEventListener('click', closeModal);
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
+      },
+
+      showImportSuccessModal(message) {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
+        modal.innerHTML = `
+          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">${message}</div>
+            <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Your data has been ${message.includes('merged') ? 'merged' : 'imported'} successfully.</div>
+            <button class="modal-ok" style="background: var(--primary); color: white; border: 0; padding: 12px 32px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">OK</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        const closeModal = () => {
+          document.body.removeChild(modal);
+        };
+
+        modal.querySelector('.modal-ok').addEventListener('click', closeModal);
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
+      },
+
+      showSampleDataSuccessModal() {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
+        modal.innerHTML = `
+          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Sample Data Loaded Successfully!</div>
+            <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">You now have 35+ sample records to explore.</div>
+            <button class="modal-ok" style="background: var(--primary); color: white; border: 0; padding: 12px 32px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">OK</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        const closeModal = () => {
+          document.body.removeChild(modal);
+        };
+
+        modal.querySelector('.modal-ok').addEventListener('click', closeModal);
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
+      },
+
+      showSectionsClearedSuccessModal() {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
+        modal.innerHTML = `
+          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Sections Cleared Successfully!</div>
+            <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">The selected sections have been cleared.</div>
+            <button class="modal-ok" style="background: var(--primary); color: white; border: 0; padding: 12px 32px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">OK</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        const closeModal = () => {
+          document.body.removeChild(modal);
+        };
+
+        modal.querySelector('.modal-ok').addEventListener('click', closeModal);
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
+      },
+
+      showSelectSectionErrorModal() {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
+        modal.innerHTML = `
+          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Please Select at Least One Section</div>
+            <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Choose one or more sections to clear before proceeding.</div>
+            <button class="modal-ok" style="background: var(--primary); color: white; border: 0; padding: 12px 32px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">OK</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        const closeModal = () => {
+          document.body.removeChild(modal);
+        };
+
+        modal.querySelector('.modal-ok').addEventListener('click', closeModal);
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+        });
       },
 
       importDataFile(file) {
@@ -5295,7 +5456,7 @@
             const data = JSON.parse(e.target.result);
             this.showImportModal(data);
           } catch (err) {
-            alert('Invalid JSON file');
+            this.showImportErrorModal();
           }
         };
         reader.readAsText(file);
@@ -5305,25 +5466,35 @@
         const modal = document.createElement('div');
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
-          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%;">
+          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; position: relative;">
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Import Data</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px;">How would you like to import this data?</div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-              <button style="background: #0066CC; color: white; border: 0; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 500;">Replace All</button>
-              <button style="background: #1D9E75; color: white; border: 0; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 500;">Merge</button>
+              <button class="modal-replace" style="background: #0066CC; color: white; border: 0; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 500;">Replace All</button>
+              <button class="modal-merge" style="background: #1D9E75; color: white; border: 0; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 500;">Merge</button>
             </div>
           </div>
         `;
         document.body.appendChild(modal);
 
-        const buttons = modal.querySelectorAll('button');
-        buttons[0].addEventListener('click', () => {
+        const closeModal = () => {
+          document.body.removeChild(modal);
+        };
+
+        modal.querySelector('.modal-replace').addEventListener('click', () => {
           this.replaceData(data);
           document.body.removeChild(modal);
         });
-        buttons[1].addEventListener('click', () => {
+        modal.querySelector('.modal-merge').addEventListener('click', () => {
           this.mergeData(data);
           document.body.removeChild(modal);
+        });
+        modal.querySelector('.modal-close').addEventListener('click', closeModal);
+
+        // Close on background click
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
         });
       },
 
@@ -5346,7 +5517,7 @@
         ResumePointTracker.init();
         CalendarTracker.init();
         this.renderDashboard();
-        alert('Data imported successfully!');
+        this.showImportSuccessModal('Data imported successfully!');
       },
 
       mergeData(data) {
@@ -5372,7 +5543,7 @@
         ResumePointTracker.init();
         CalendarTracker.init();
         this.renderDashboard();
-        alert('Data merged successfully!');
+        this.showImportSuccessModal('Data merged successfully!');
       },
 
       resetEverythingStep1() {
@@ -5452,7 +5623,7 @@
       resetSelectedSections() {
         const checkboxes = document.querySelectorAll('.reset-section-checkbox:checked');
         if (checkboxes.length === 0) {
-          alert('Please select at least one section');
+          this.showSelectSectionErrorModal();
           return;
         }
 
@@ -5502,7 +5673,7 @@
           CalendarTracker.init();
           this.renderDashboard();
           document.querySelectorAll('.reset-section-checkbox').forEach(cb => cb.checked = false);
-          alert('Sections cleared successfully!');
+          this.showSectionsClearedSuccessModal();
         });
       },
 
@@ -5609,7 +5780,7 @@
         ResumePointTracker.init();
         this.renderDashboard();
         this.renderBadges();
-        alert('Sample data loaded successfully! You now have 35+ sample records to explore.');
+        this.showSampleDataSuccessModal();
       },
 
       renderBadges() {
@@ -6149,9 +6320,23 @@
       renderDashboard() {
         const dashboardContent = document.getElementById('dashboardContent');
         const isOnboarded = localStorage.getItem(STORAGE_KEYS.ONBOARDED);
-        console.log('renderDashboard - isOnboarded:', isOnboarded, 'STORAGE_KEY:', STORAGE_KEYS.ONBOARDED);
+        const onboardingCompleted = localStorage.getItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
 
-        if (isOnboarded) {
+        // Check if both onboarding tasks are complete (salary + currency set AND first app added)
+        const tasksBothComplete = this.checkOnboardingTasksComplete();
+
+        // If tasks are complete, mark onboarding as completed
+        if (tasksBothComplete && !onboardingCompleted) {
+          localStorage.setItem(STORAGE_KEYS.ONBOARDING_COMPLETED, 'true');
+        }
+
+        console.log('renderDashboard - isOnboarded:', isOnboarded, 'onboardingCompleted:', onboardingCompleted, 'tasksBothComplete:', tasksBothComplete);
+
+        // Show dashboard if user has been onboarded OR onboarding is completed (via tasks or skip limit)
+        // Otherwise show onboarding checklist
+        const shouldShowDashboard = isOnboarded || onboardingCompleted || tasksBothComplete;
+
+        if (shouldShowDashboard) {
           console.log('Showing dashboard (onboarded)');
           dashboardContent.innerHTML = this.getDashboardHTML();
 
@@ -6214,6 +6399,21 @@
         });
       },
 
+      checkOnboardingTasksComplete() {
+        // Check if both onboarding tasks are complete:
+        // 1. Target salary is set (> 0) - currency can be any value (has default)
+        // 2. At least one application is added
+
+        const settings = Settings.get();
+        const targetSalarySet = settings && settings.targetSalary && parseInt(settings.targetSalary) > 0;
+        const firstApplicationAdded = AppTracker && AppTracker.apps && AppTracker.apps.length > 0;
+
+        const tasksComplete = targetSalarySet && firstApplicationAdded;
+        console.log('Onboarding check - Target salary set:', targetSalarySet, 'First app added:', firstApplicationAdded, 'Both complete:', tasksComplete);
+
+        return tasksComplete;
+      },
+
       getOnboardingHTML() {
         return `<div class="onboarding">
           <div class="onboarding-header">
@@ -6235,20 +6435,6 @@
                 <button class="checklist-action">Go →</button>
               </div>
             </li>
-            <li class="checklist-item" data-step="company">
-              <div class="checklist-icon">🏢</div>
-              <div class="checklist-content">
-                <div class="checklist-label">Add Your First Company</div>
-                <button class="checklist-action">Go →</button>
-              </div>
-            </li>
-            <li class="checklist-item" data-step="interview">
-              <div class="checklist-icon">💬</div>
-              <div class="checklist-content">
-                <div class="checklist-label">Schedule Your First Interview</div>
-                <button class="checklist-action">Go →</button>
-              </div>
-            </li>
           </ul>
           <div class="onboarding-footer">
             <button class="skip-btn" id="skipOnboarding">Skip for now</button>
@@ -6262,6 +6448,17 @@
         console.log('skipBtn found:', !!skipBtn);
         if (skipBtn) {
           skipBtn.addEventListener('click', () => {
+            // Increment skip count
+            let skipCount = parseInt(localStorage.getItem(STORAGE_KEYS.ONBOARDING_SKIP_COUNT) || '0');
+            skipCount++;
+
+            // If skipped 2 times, permanently hide onboarding
+            if (skipCount >= 2) {
+              localStorage.setItem(STORAGE_KEYS.ONBOARDING_COMPLETED, 'true');
+            } else {
+              localStorage.setItem(STORAGE_KEYS.ONBOARDING_SKIP_COUNT, skipCount.toString());
+            }
+
             localStorage.setItem(STORAGE_KEYS.ONBOARDED, 'true');
             this.renderDashboard();
           });
@@ -6643,17 +6840,25 @@
           notes: document.getElementById('formNotes').value || ''
         };
 
+        // Update state array FIRST
         if (this.editId) {
           const index = this.apps.findIndex(a => a.id === this.editId);
-          this.apps[index] = app;
+          if (index !== -1) this.apps[index] = app;
         } else {
           this.apps.push(app);
         }
 
+        // Save to localStorage
         DB.set(STORAGE_KEYS.APPS, this.apps);
+
+        // Close UI elements
         this.closeModal();
         this.closeDuplicateWarning();
+
+        // Update UI with new data
         this.render();
+
+        // Update related trackers
         try {
           if (typeof OfferTracker !== 'undefined' && OfferTracker.render) {
             OfferTracker.render();
@@ -6685,9 +6890,16 @@
       },
 
       delete(id) {
+        // Update state array FIRST
         this.apps = this.apps.filter(a => a.id !== id);
+
+        // Save to localStorage
         DB.set(STORAGE_KEYS.APPS, this.apps);
+
+        // Update UI with new data
         this.render();
+
+        // Update related trackers
         try {
           if (typeof OfferTracker !== 'undefined' && OfferTracker.render) {
             OfferTracker.render();
@@ -6704,8 +6916,13 @@
           // Store expanded state before re-render
           const expandedCardId = document.querySelector('.application-card.expanded')?.dataset.appId;
 
+          // Update state array
           app.followUpSent = !app.followUpSent;
+
+          // Save to localStorage
           DB.set(STORAGE_KEYS.APPS, this.apps);
+
+          // Update UI with new data
           this.render();
 
           // Restore expanded state after re-render
@@ -7411,23 +7628,38 @@
           notes: document.getElementById('formIntNotes').value || ''
         };
 
+        // Update state array FIRST
         if (this.editId) {
           const index = this.interviews.findIndex(i => i.id === this.editId);
-          this.interviews[index] = interview;
+          if (index !== -1) this.interviews[index] = interview;
         } else {
           this.interviews.push(interview);
         }
 
+        // Save to localStorage
         DB.set(STORAGE_KEYS.INTERVIEWS, this.interviews);
+
+        // Close UI elements
         this.closeModal();
+
+        // Update UI with new data
         this.render();
+
+        // Update related trackers
         if (localStorage.getItem(STORAGE_KEYS.ONBOARDED)) UI.renderDashboard();
       },
 
       delete(id) {
+        // Update state array FIRST
         this.interviews = this.interviews.filter(i => i.id !== id);
+
+        // Save to localStorage
         DB.set(STORAGE_KEYS.INTERVIEWS, this.interviews);
+
+        // Update UI with new data
         this.render();
+
+        // Update related trackers
         if (localStorage.getItem(STORAGE_KEYS.ONBOARDED)) UI.renderDashboard();
       },
 
@@ -7468,9 +7700,16 @@
       toggleDone(id) {
         const interview = this.interviews.find(i => i.id === id);
         if (interview) {
+          // Update state array
           interview.done = !interview.done;
+
+          // Save to localStorage
           DB.set(STORAGE_KEYS.INTERVIEWS, this.interviews);
+
+          // Update UI with new data
           this.render();
+
+          // Update related trackers
           if (localStorage.getItem(STORAGE_KEYS.ONBOARDED)) UI.renderDashboard();
         }
       },
@@ -7933,23 +8172,44 @@
           status: existingOffer?.status || 'Negotiating'
         };
 
+        // Update state array FIRST
         if (this.editId) {
           const index = this.offers.findIndex(o => o.id === this.editId);
-          this.offers[index] = offer;
+          if (index !== -1) this.offers[index] = offer;
         } else {
           this.offers.push(offer);
         }
 
+        // Save to localStorage
         DB.set(STORAGE_KEYS.OFFERS, this.offers);
+
+        // Close UI elements
         this.closeModal();
+
+        // Reset pagination when data changes
+        this.currentPage = 0;
+
+        // Update UI with new data
         this.render();
+
+        // Update related trackers
         if (localStorage.getItem(STORAGE_KEYS.ONBOARDED)) UI.renderDashboard();
       },
 
       delete(id) {
+        // Update state array FIRST
         this.offers = this.offers.filter(o => o.id !== id);
+
+        // Save to localStorage
         DB.set(STORAGE_KEYS.OFFERS, this.offers);
+
+        // Reset pagination when data changes
+        this.currentPage = 0;
+
+        // Update UI with new data
         this.render();
+
+        // Update related trackers
         if (localStorage.getItem(STORAGE_KEYS.ONBOARDED)) UI.renderDashboard();
       },
 
@@ -8729,30 +8989,53 @@
           lastUpdated: new Date().toISOString().split('T')[0]
         };
 
+        // Update state array FIRST
         if (this.editId) {
           const index = this.companies.findIndex(c => c.id === this.editId);
-          this.companies[index] = company;
+          if (index !== -1) this.companies[index] = company;
         } else {
           this.companies.push(company);
         }
 
+        // Save to localStorage
         DB.set(STORAGE_KEYS.COMPANIES, this.companies);
+
+        // Close UI elements
         this.closeModal();
+
+        // Reset pagination when data changes
+        this.currentPage = 0;
+
+        // Update UI with new data
         this.render();
       },
 
       delete(id) {
+        // Update state array FIRST
         this.companies = this.companies.filter(c => c.id !== id);
+
+        // Also remove from comparison selection if selected
         if (this.selectedForComparison.includes(id)) {
           this.selectedForComparison = this.selectedForComparison.filter(cid => cid !== id);
         }
+
+        // Save to localStorage
         DB.set(STORAGE_KEYS.COMPANIES, this.companies);
+
+        // Reset pagination when data changes
+        this.currentPage = 0;
+
+        // Update comparison banner
         this.updateCompareBanner();
+
+        // Update UI with new data
         this.render();
       },
 
       toggleComparison(id) {
         console.log('toggleComparison called with id:', id);
+
+        // Update state array
         if (this.selectedForComparison.includes(id)) {
           this.selectedForComparison = this.selectedForComparison.filter(cid => cid !== id);
           console.log('Removed from comparison');
@@ -8771,8 +9054,13 @@
           this.selectedForComparison.push(id);
           console.log('Added to comparison');
         }
+
         console.log('selectedForComparison:', this.selectedForComparison);
+
+        // Update comparison banner
         this.updateCompareBanner();
+
+        // Update UI with new data
         this.render();
       },
 
@@ -9400,29 +9688,51 @@
           dateUploaded: this.editId ? this.documents.find(d => d.id === this.editId).dateUploaded : new Date().toISOString().split('T')[0]
         };
 
+        // Update state array FIRST
         if (this.editId) {
           const index = this.documents.findIndex(d => d.id === this.editId);
-          this.documents[index] = doc;
+          if (index !== -1) this.documents[index] = doc;
         } else {
           this.documents.push(doc);
         }
 
+        // Save to localStorage
         DB.set(STORAGE_KEYS.DOCUMENTS, this.documents);
+
+        // Close UI elements
         this.closeModal();
+
+        // Reset pagination when data changes
+        this.currentPage = 0;
+
+        // Update UI with new data
         this.render();
       },
 
       delete(id) {
+        // Update state array FIRST
         this.documents = this.documents.filter(d => d.id !== id);
+
+        // Save to localStorage
         DB.set(STORAGE_KEYS.DOCUMENTS, this.documents);
+
+        // Reset pagination when data changes
+        this.currentPage = 0;
+
+        // Update UI with new data
         this.render();
       },
 
       clearFilters() {
+        // Clear filter inputs
         document.getElementById('documentSearchInput').value = '';
         document.getElementById('documentApplicationFilter').value = '';
         document.getElementById('documentTypeFilter').value = '';
+
+        // Reset pagination
         this.currentPage = 0;
+
+        // Update UI with reset filters
         this.render();
       },
 
@@ -9869,28 +10179,48 @@
           addedInResume: document.getElementById('formResumePointAddedInResume').checked
         };
 
+        // Update state array FIRST
         if (this.editId) {
           const index = this.points.findIndex(p => p.id === this.editId);
-          this.points[index] = point;
+          if (index !== -1) this.points[index] = point;
         } else {
           this.points.push(point);
         }
 
+        // Save to localStorage
         DB.set(STORAGE_KEYS.RESUME_POINTS, this.points);
+
+        // Close UI elements
         this.closeModal();
+
+        // Reset pagination when data changes
+        this.currentPage = 0;
+
+        // Update UI with new data
         this.render();
       },
 
       delete(id) {
+        // Update state array FIRST
         this.points = this.points.filter(p => p.id !== id);
+
+        // Save to localStorage
         DB.set(STORAGE_KEYS.RESUME_POINTS, this.points);
+
+        // Reset pagination when data changes
+        this.currentPage = 0;
+
+        // Update UI with new data
         this.render();
       },
 
       clearFilters() {
+        // Clear filter inputs
         document.getElementById('resumePointSearchInput').value = '';
         document.getElementById('resumePointCategoryFilter').value = '';
         document.getElementById('resumePointInResumeFilter').value = '';
+
+        // Update UI with reset filters (render() resets currentPage automatically)
         this.render();
       },
 

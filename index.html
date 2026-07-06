@@ -4569,6 +4569,11 @@
         // Currency dropdown setup
         this.setupCurrencyDropdown();
 
+        // Select all text in target salary input when focused
+        document.getElementById('targetSalaryInput').addEventListener('focus', (e) => {
+          e.target.select();
+        });
+
         savBtn.addEventListener('click', () => {
           this.saveSettings();
           closeSettings();
@@ -7124,7 +7129,7 @@
           document.querySelector('.table-container').style.display = 'none';
           document.getElementById('emptyState').style.display = 'block';
         } else {
-          document.querySelector('.app-table').style.display = '';
+          document.querySelector('.table-container').style.display = '';
           document.getElementById('emptyState').style.display = 'none';
         }
 
@@ -9159,9 +9164,28 @@
         }
       },
 
+      populateIndustryFilter() {
+        const industryFilter = document.getElementById('companyIndustryFilter');
+        if (!industryFilter) return;
+
+        const currentValue = industryFilter.value;
+        const uniqueIndustries = [...new Set(this.companies.map(c => c.industry).filter(i => i))].sort();
+
+        industryFilter.innerHTML = '<option value="">All Industries</option>';
+        uniqueIndustries.forEach(industry => {
+          const option = document.createElement('option');
+          option.value = industry;
+          option.textContent = industry;
+          industryFilter.appendChild(option);
+        });
+
+        industryFilter.value = currentValue;
+      },
+
       render() {
         console.log('CompanyTracker.render() called');
         try {
+          this.populateIndustryFilter();
           const filtered = this.getFilteredCompanies();
           const sorted = this.getSortedCompanies(filtered);
           const rowsPerPage = parseInt(document.getElementById('companyRowsPerPageSelect')?.value || '10');

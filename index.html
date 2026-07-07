@@ -4523,11 +4523,29 @@
         this.setupNavigation();
         this.setupSettings();
         this.setupKeyboardShortcuts();
-        this.switchSection('dashboard');
-        AppTracker.init();
-        InterviewTracker.init();
-        OfferTracker.init();
-        this.renderDashboard();
+
+        const lastSection = localStorage.getItem('lastViewedSection') || 'dashboard';
+        this.switchSection(lastSection);
+
+        const navItem = document.querySelector(`[data-section="${lastSection}"]`);
+        if (navItem) {
+          document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+          navItem.classList.add('active');
+        }
+
+        if (lastSection === 'dashboard') {
+          AppTracker.init();
+          InterviewTracker.init();
+          OfferTracker.init();
+          this.renderDashboard();
+        }
+        if (lastSection === 'applications') AppTracker.init();
+        if (lastSection === 'interviews') InterviewTracker.init();
+        if (lastSection === 'offers') OfferTracker.init();
+        if (lastSection === 'companies') CompanyTracker.init();
+        if (lastSection === 'documents') DocumentTracker.init();
+        if (lastSection === 'resume') ResumePointTracker.init();
+        if (lastSection === 'calendar') CalendarTracker.init();
       },
 
       setupNavigation() {
@@ -4536,6 +4554,7 @@
             item.addEventListener('click', () => {
               const section = item.dataset.section;
               this.switchSection(section);
+              localStorage.setItem('lastViewedSection', section);
               document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
               item.classList.add('active');
               if (section === 'dashboard') {
@@ -5712,7 +5731,8 @@
         const modal = document.createElement('div');
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
-          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%;">
+          <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; position: relative;">
+            <button class="sample-close" style="position: absolute; top: 12px; right: 12px; background: none; border: none; color: var(--text-primary); cursor: pointer; font-size: 24px; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">×</button>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">📊 Load Sample Data</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px;">Add sample data to explore the app. 35+ records with different statuses and types.</div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
@@ -5722,6 +5742,10 @@
           </div>
         `;
         document.body.appendChild(modal);
+
+        modal.querySelector('.sample-close').addEventListener('click', () => {
+          document.body.removeChild(modal);
+        });
 
         modal.querySelector('.sample-add').addEventListener('click', () => {
           document.body.removeChild(modal);
@@ -10271,11 +10295,22 @@
       },
 
       delete(id) {
+        const pointToDelete = this.points.find(p => p.id === id);
+        const deletedCategory = pointToDelete ? pointToDelete.category : null;
+
         // Update state array FIRST
         this.points = this.points.filter(p => p.id !== id);
 
         // Save to localStorage
         DB.set(STORAGE_KEYS.RESUME_POINTS, this.points);
+
+        // Remove category if no resume points use it
+        if (deletedCategory) {
+          const categoryStillInUse = this.points.some(p => p.category && p.category.toLowerCase() === deletedCategory.toLowerCase());
+          if (!categoryStillInUse) {
+            this.deleteCategory(deletedCategory);
+          }
+        }
 
         // Reset pagination when data changes
         this.currentPage = 0;

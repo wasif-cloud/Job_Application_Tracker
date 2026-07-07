@@ -4608,6 +4608,7 @@
           document.getElementById('darkModeToggle').classList.toggle('on');
           document.getElementById('darkModeLabel').textContent = isOn ? 'On' : 'Off';
           document.documentElement.classList.toggle('dark', isOn);
+          Settings.set({darkMode: isOn});
         });
 
         const colors = {
@@ -6111,8 +6112,8 @@
           const isToday = dateStr === new Date().toISOString().split('T')[0];
           let dotHtml = '';
           if (hasInterview) dotHtml += '<div style="width: 4px; height: 4px; background: #378ADD; border-radius: 50%;"></div>';
-          if (hasDeadline) dotHtml += '<div style="width: 4px; height: 4px; background: #E8A020; border-radius: 50%;"></div>';
-          if (hasFollowUp) dotHtml += '<div style="width: 4px; height: 4px; background: #D4537E; border-radius: 50%;"></div>';
+          if (hasDeadline) dotHtml += '<div style="width: 4px; height: 4px; background: #D4537E; border-radius: 50%;"></div>';
+          if (hasFollowUp) dotHtml += '<div style="width: 4px; height: 4px; background: #E8A020; border-radius: 50%;"></div>';
           if (hasOfferDeadline) dotHtml += '<div style="width: 4px; height: 4px; background: #1D9E75; border-radius: 50%;"></div>';
 
           html += `<div style="padding: 4px; text-align: center; border-radius: 4px; ${isToday ? 'background: var(--primary); color: white;' : 'color: var(--text-primary);'} position: relative;">

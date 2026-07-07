@@ -244,6 +244,11 @@
       border: 0;
       cursor: pointer;
       font-size: 20px;
+      color: var(--text-primary);
+      transition: opacity 0.2s;
+    }
+    .settings-close:hover {
+      opacity: 0.7;
     }
     .settings-content {
       padding: var(--space-lg);
@@ -3763,6 +3768,7 @@
       <div class="app-modal-content">
         <div class="app-modal-header">
           <h2 class="app-modal-title" id="customEntryModalTitle">Add Calendar Event</h2>
+          <button type="button" class="app-modal-close" id="customEntryModalClose" style="background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
         </div>
         <form id="customCalendarEntryForm">
           <div class="form-grid">
@@ -3804,12 +3810,13 @@
       <div class="app-modal-content">
         <div class="app-modal-header">
           <h2 class="app-modal-title" id="resumePointModalTitle">Add Resume Point</h2>
+          <button type="button" class="app-modal-close" id="resumePointModalClose" style="background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
         </div>
         <form id="resumePointForm">
           <div class="form-grid">
             <div class="form-field">
               <label class="form-label">Category *</label>
-              <input id="formResumePointCategory" class="form-input" type="text" placeholder="e.g., Projects, Work Experience, Awards" required>
+              <input id="formResumePointCategory" class="form-input" type="text" placeholder="e.g., Frontend, Backend, DevOps" required>
             </div>
             <div class="form-field">
               <label class="form-label">Activity/Project</label>
@@ -3916,6 +3923,7 @@
     <div class="app-modal-content">
       <div class="app-modal-header">
         <h2 class="app-modal-title" id="companyModalTitle">Add Company</h2>
+        <button type="button" class="app-modal-close" id="companyModalClose" style="background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
       </div>
       <form id="companyForm">
         <div class="form-grid">
@@ -3995,6 +4003,7 @@
     <div class="app-modal-content">
       <div class="app-modal-header">
         <h2 class="app-modal-title" id="documentModalTitle">Add Document</h2>
+        <button type="button" class="app-modal-close" id="documentModalClose" style="background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
       </div>
       <form id="documentForm">
         <div class="form-grid">
@@ -4043,6 +4052,7 @@
     <div class="app-modal-content">
       <div class="app-modal-header">
         <h2 class="app-modal-title" id="offerModalTitle">Add Offer</h2>
+        <button type="button" class="app-modal-close" id="offerModalClose" style="background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
       </div>
       <form id="offerForm">
         <div class="form-grid">
@@ -4111,6 +4121,7 @@
     <div class="app-modal-content">
       <div class="app-modal-header">
         <h2 class="app-modal-title" id="modalTitle">Add Application</h2>
+        <button type="button" class="app-modal-close" id="appModalClose" style="background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
       </div>
       <form id="appForm">
         <div class="form-grid full">
@@ -4227,6 +4238,7 @@
     <div class="app-modal-content">
       <div class="app-modal-header">
         <h2 class="app-modal-title" id="interviewModalTitle">Add Interview</h2>
+        <button type="button" class="app-modal-close" id="interviewModalClose" style="background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
       </div>
       <form id="interviewForm">
         <div class="form-grid">
@@ -5316,7 +5328,7 @@
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
           <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
-            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
             <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Data Exported Successfully!</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Your complete application data has been downloaded as a JSON file.</div>
@@ -5343,7 +5355,7 @@
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
           <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
-            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
             <div style="font-size: 48px; margin-bottom: 16px;">❌</div>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Invalid JSON File</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">The file you selected is not a valid JSON file. Please ensure it was exported from this application.</div>
@@ -5369,7 +5381,7 @@
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
           <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
-            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
             <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">${message}</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Your data has been ${message.includes('merged') ? 'merged' : 'imported'} successfully.</div>
@@ -5395,7 +5407,7 @@
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
           <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
-            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
             <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Sample Data Loaded Successfully!</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">You now have 35+ sample records to explore.</div>
@@ -5421,7 +5433,7 @@
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
           <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
-            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
             <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Sections Cleared Successfully!</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">The selected sections have been cleared.</div>
@@ -5447,7 +5459,7 @@
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
           <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; text-align: center; position: relative;">
-            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
             <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Please Select at Least One Section</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Choose one or more sections to clear before proceeding.</div>
@@ -5486,7 +5498,7 @@
         modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 3000;';
         modal.innerHTML = `
           <div style="background: var(--bg-primary); border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; position: relative;">
-            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-secondary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: background 0.2s;">✕</button>
+            <button class="modal-close" style="position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 24px; cursor: pointer; color: var(--text-primary); padding: 4px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">✕</button>
             <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Import Data</div>
             <div style="color: var(--text-secondary); margin-bottom: 24px;">How would you like to import this data?</div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
@@ -6745,6 +6757,7 @@
         document.getElementById('appModal').addEventListener('keydown', (e) => {
           if (e.key === 'Escape') this.closeModal();
         });
+        document.getElementById('appModalClose')?.addEventListener('click', () => this.closeModal());
       },
 
       openAdd() {
@@ -7426,6 +7439,7 @@
           this.save();
         });
         document.getElementById('interviewModalCancel').addEventListener('click', () => this.closeModal());
+        document.getElementById('interviewModalClose')?.addEventListener('click', () => this.closeModal());
 
         document.getElementById('interviewTableBody').addEventListener('click', (e) => {
           if (e.target.classList.contains('edit-btn')) {
@@ -8007,6 +8021,7 @@
           this.save();
         });
         document.getElementById('offerModalCancel').addEventListener('click', () => this.closeModal());
+        document.getElementById('offerModalClose')?.addEventListener('click', () => this.closeModal());
 
         document.getElementById('confirmationCancel').addEventListener('click', () => {
           document.getElementById('confirmationModal').style.display = 'none';
@@ -8785,6 +8800,7 @@
 
         const cancelBtn = document.getElementById('companyModalCancel');
         if (cancelBtn) cancelBtn.addEventListener('click', () => this.closeModal());
+        document.getElementById('companyModalClose')?.addEventListener('click', () => this.closeModal());
 
         const tableBody = document.getElementById('companyTableBody');
         console.log('tableBody element found:', !!tableBody);
@@ -9568,6 +9584,7 @@
 
         const cancelBtn = document.getElementById('documentModalCancel');
         if (cancelBtn) cancelBtn.addEventListener('click', () => this.closeModal());
+        document.getElementById('documentModalClose')?.addEventListener('click', () => this.closeModal());
 
         const tableBody = document.getElementById('documentTableBody');
         if (tableBody) tableBody.addEventListener('click', (e) => {
@@ -9931,9 +9948,9 @@
 
       init() {
         this.points = DB.get(STORAGE_KEYS.RESUME_POINTS) || [];
-        this.initializeDefaultCategories();
         this.migrateData();
         DB.set(STORAGE_KEYS.RESUME_POINTS, this.points);
+        this.createCategoriesFromExistingPoints();
         if (!this.listenersSetup) {
           this.setupListeners();
           this.listenersSetup = true;
@@ -9941,34 +9958,38 @@
         this.render();
       },
 
-      initializeDefaultCategories() {
-        const categories = DB.get(STORAGE_KEYS.RESUME_CATEGORIES);
-        if (!categories || categories.length === 0) {
-          const defaultCategories = [
-            { id: 'default-1', name: 'Software Development', color: '#7C6EE6', isDefault: true },
-            { id: 'default-2', name: 'Data Analysis', color: '#1D9E75', isDefault: true },
-            { id: 'default-3', name: 'UI/UX Design', color: '#D4537E', isDefault: true },
-            { id: 'default-4', name: 'Cloud Computing', color: '#378ADD', isDefault: true },
-            { id: 'default-5', name: 'Machine Learning', color: '#E8A020', isDefault: true }
-          ];
-          DB.set(STORAGE_KEYS.RESUME_CATEGORIES, defaultCategories);
-        }
+      createCategoriesFromExistingPoints() {
+        const existingCategories = this.getCategories();
+        const existingCategoryNames = existingCategories.map(cat => cat.name.toLowerCase());
+        const uniqueCategories = new Set();
+        this.points.forEach(point => {
+          if (point.category && !existingCategoryNames.includes(point.category.toLowerCase())) {
+            uniqueCategories.add(point.category);
+          }
+        });
+        uniqueCategories.forEach(categoryName => {
+          this.addCategory(categoryName, '#7C6EE6');
+        });
       },
 
+
       getCategories() {
-        return DB.get(STORAGE_KEYS.RESUME_CATEGORIES) || [];
+        const stored = DB.get(STORAGE_KEYS.RESUME_CATEGORIES);
+        const allCategories = Array.isArray(stored) ? stored : [];
+        return allCategories.filter(cat => !cat.isDefault);
       },
 
       addCategory(name, color) {
-        const categories = this.getCategories();
+        const allStoredCategories = DB.get(STORAGE_KEYS.RESUME_CATEGORIES) || [];
+        const userCategories = allStoredCategories.filter(cat => !cat.isDefault);
         const newCategory = {
           id: 'user-' + DB.generateId(),
           name: name,
           color: color,
           isDefault: false
         };
-        categories.push(newCategory);
-        DB.set(STORAGE_KEYS.RESUME_CATEGORIES, categories);
+        userCategories.push(newCategory);
+        DB.set(STORAGE_KEYS.RESUME_CATEGORIES, userCategories);
         return newCategory;
       },
 
@@ -9976,17 +9997,6 @@
         const categories = this.getCategories();
         const filtered = categories.filter(cat => cat.id !== id);
         DB.set(STORAGE_KEYS.RESUME_CATEGORIES, filtered);
-      },
-
-      resetDefaultCategories() {
-        const defaultCategories = [
-          { id: 'default-1', name: 'Software Development', color: '#7C6EE6', isDefault: true },
-          { id: 'default-2', name: 'Data Analysis', color: '#1D9E75', isDefault: true },
-          { id: 'default-3', name: 'UI/UX Design', color: '#D4537E', isDefault: true },
-          { id: 'default-4', name: 'Cloud Computing', color: '#378ADD', isDefault: true },
-          { id: 'default-5', name: 'Machine Learning', color: '#E8A020', isDefault: true }
-        ];
-        DB.set(STORAGE_KEYS.RESUME_CATEGORIES, defaultCategories);
       },
 
       migrateData() {
@@ -10014,6 +10024,7 @@
           this.save();
         });
         document.getElementById('resumePointModalCancel').addEventListener('click', () => this.closeModal());
+        document.getElementById('resumePointModalClose')?.addEventListener('click', () => this.closeModal());
 
         document.getElementById('resumePointTableBody').addEventListener('click', (e) => {
           if (e.target.classList.contains('edit-btn')) {
@@ -10057,30 +10068,33 @@
         if (resumePointRowsPerPageSelect) {
           resumePointRowsPerPageSelect.addEventListener('change', () => this.render());
         }
+
+        document.getElementById('noCategoriesManage').addEventListener('click', () => {
+          document.getElementById('noCategoriesWarningModal').classList.remove('open');
+          this.openManageCategoriesModal();
+        });
+        document.getElementById('noCategoriesCancel').addEventListener('click', () => {
+          document.getElementById('noCategoriesWarningModal').classList.remove('open');
+        });
+        document.getElementById('saveCategoriesBtn').addEventListener('click', () => this.handleSaveCategories());
+        document.getElementById('cancelCategoriesBtn').addEventListener('click', () => this.handleCancelCategories());
+        document.getElementById('addNewCategoryBtn').addEventListener('click', () => this.handleAddCategory());
       },
 
       updateCategoryDropdowns() {
         const allCategories = this.getCategories();
-        const userCategories = allCategories.filter(cat => !cat.isDefault);
-        const selectElements = [
-          document.getElementById('formResumePointCategory'),
-          document.getElementById('resumePointCategoryFilter')
-        ];
-        selectElements.forEach(select => {
-          if (select) {
-            const currentValue = select.value;
-            select.innerHTML = select === document.getElementById('resumePointCategoryFilter')
-              ? '<option value="">All Categories</option>'
-              : '<option value="">Select Category</option>';
-            userCategories.forEach(cat => {
-              const option = document.createElement('option');
-              option.value = cat.name;
-              option.textContent = cat.name;
-              select.appendChild(option);
-            });
-            select.value = currentValue;
-          }
-        });
+        const filterSelect = document.getElementById('resumePointCategoryFilter');
+        if (filterSelect) {
+          const currentValue = filterSelect.value;
+          filterSelect.innerHTML = '<option value="">All Categories</option>';
+          allCategories.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.name;
+            option.textContent = cat.name;
+            filterSelect.appendChild(option);
+          });
+          filterSelect.value = currentValue;
+        }
       },
 
       openManageCategoriesModal() {
@@ -10093,6 +10107,7 @@
 
       handleSaveCategories() {
         this.originalCategories = [];
+        this.updateCategoryDropdowns();
         document.getElementById('manageCategoriesModal').classList.remove('open');
       },
 
@@ -10177,7 +10192,6 @@
         if (!point) return;
 
         this.editId = id;
-        this.updateCategoryDropdowns();
         document.getElementById('resumePointModalTitle').textContent = 'Edit Resume Point';
         document.getElementById('formResumePointCategory').value = point.category || '';
         document.getElementById('formResumePointActivity').value = point.activityProject || '';
@@ -10211,6 +10225,12 @@
         if (!category || !description) {
           alert('Category and Description are required');
           return;
+        }
+
+        const allStoredCategories = DB.get(STORAGE_KEYS.RESUME_CATEGORIES) || [];
+        const userCategories = allStoredCategories.filter(cat => !cat.isDefault);
+        if (!userCategories.some(cat => cat.name.toLowerCase() === category.toLowerCase())) {
+          this.addCategory(category, '#7C6EE6');
         }
 
         const skillsInput = document.getElementById('formResumePointSkills').value;
@@ -10581,6 +10601,7 @@
           this.saveCustomEntry();
         });
         document.getElementById('customEntryModalCancel').addEventListener('click', () => this.closeCustomEntryModal());
+        document.getElementById('customEntryModalClose')?.addEventListener('click', () => this.closeCustomEntryModal());
         document.getElementById('popoverClose').addEventListener('click', () => this.closeDayPopover());
         document.getElementById('dayPopover').addEventListener('keydown', (e) => {
           if (e.key === 'Escape') this.closeDayPopover();

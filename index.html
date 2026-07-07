@@ -74,6 +74,11 @@
       font-weight: 700;
       color: var(--primary);
       white-space: nowrap;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .logo:hover {
+      opacity: 0.8;
     }
     .sidebar-nav {
       flex: 1;
@@ -1379,8 +1384,8 @@
       padding: 6px 12px;
       border: 1px solid var(--border);
       border-radius: 6px;
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      background: #000;
+      color: #fff;
       font-size: 14px;
       cursor: pointer;
     }
@@ -4537,6 +4542,14 @@
             });
           }
         });
+
+        // Logo click handler - refresh page and navigate to dashboard
+        const logo = document.querySelector('.logo');
+        if (logo) {
+          logo.addEventListener('click', () => {
+            location.reload();
+          });
+        }
       },
 
       switchSection(sectionName) {
@@ -6161,9 +6174,9 @@
         return `
           <div style="padding: 20px;">
             <div style="display: none; font-size: 30px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px;" class="mobile-app-title">Job Application Tracker</div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
               <h2 style="margin: 0; color: var(--text-primary); font-size: 20px;">Dashboard</h2>
-              <button id="dashboardAddAppBtn" class="pop-up-btn" style="background: var(--primary); color: white; border: 0; padding: 14px 24px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 16px;">+ Add Application</button>
+              <button id="dashboardAddAppBtn" class="pop-up-btn" style="background: var(--primary); color: white; border: 0; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">+ Add Application</button>
             </div>
 
             <!-- Job Search Widget (Mobile Order: 1) -->
@@ -6211,7 +6224,7 @@
             <!-- Charts Section (Mobile Order: 4, Collapsible) -->
             <div class="dashboard-stats-section" style="margin-bottom: 32px;">
               <button id="statsToggle" class="stats-toggle">📊 Statistics</button>
-              <div class="stats-section-charts" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+              <div class="stats-section-charts" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
                 <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center;">
                   <div style="font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 12px;">Application Status</div>
                   ${this.generateApplicationStatusChart()}
@@ -8114,16 +8127,28 @@
 
         const select = document.getElementById('formOfferCompany');
 
+        // Get or create message element
+        let messageEl = document.getElementById('noNegotiatingAppsMessage');
+        if (!messageEl) {
+          messageEl = document.createElement('div');
+          messageEl.id = 'noNegotiatingAppsMessage';
+          messageEl.style.cssText = 'color: var(--text-secondary); font-size: 13px; margin-top: 8px; padding: 8px; background: var(--bg-primary); border-radius: 6px; text-align: center; display: none;';
+          select.parentElement.appendChild(messageEl);
+        }
+
         if (companies.length === 0) {
-          select.innerHTML = '<option value="">No applications available</option>';
+          select.innerHTML = '<option value="">Select Company</option>';
           select.disabled = true;
           select.style.opacity = '0.6';
+          messageEl.textContent = '⚠️ No applications on negotiating stage in Application Tracker';
+          messageEl.style.display = 'block';
           return;
         }
 
         select.disabled = false;
         select.style.opacity = '1';
         select.innerHTML = '<option value="">Select Company</option>';
+        messageEl.style.display = 'none';
         companies.forEach(company => {
           const option = document.createElement('option');
           option.value = company.id;
@@ -9443,7 +9468,7 @@
         sizeOrder.forEach(size => {
           if (sizeCounts[size] > 0) {
             html += `<div style="padding: 4px 0; color: var(--text-primary); font-size: 12px;">
-              <span style="font-weight: 500;">${size}</span>: ${sizeCounts[size]} company${sizeCounts[size] !== 1 ? 'ies' : ''}
+              <span style="font-weight: 500;">${size}</span>: ${sizeCounts[size]} ${sizeCounts[size] !== 1 ? 'companies' : 'company'}
             </div>`;
           }
         });
@@ -10658,7 +10683,7 @@
       },
 
       getEventColor(type) {
-        const colors = {deadline: '#D4537E', followup: '#E8A020', interview: '#378ADD', offer: '#1D9E75', gray: '#999999'};
+        const colors = {deadline: '#D4537E', followup: '#E8A020', interview: '#378ADD', offer: '#1D9E75', gray: '#999999', pink: '#D4537E', amber: '#E8A020', blue: '#378ADD', mint: '#1D9E75'};
         return colors[type] || '#999999';
       },
 

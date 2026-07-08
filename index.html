@@ -3191,25 +3191,6 @@
         </div>
 
         <!-- Pagination -->
-        <div class="pagination-container" id="paginationContainer" style="display: none;">
-          <div class="pagination-info" style="margin-bottom: 12px;">
-            Showing <span id="paginationStart">1</span>–<span id="paginationEnd">10</span> of <span id="paginationTotal">0</span> applications
-          </div>
-          <div class="pagination-controls">
-            <label style="display: inline-flex; align-items: center; gap: 8px;">
-              Rows per page:
-              <select id="rowsPerPageSelect">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="200">200</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
         <!-- Desktop Table -->
         <div class="table-container">
           <table class="app-table">
@@ -3245,6 +3226,26 @@
         <!-- Mobile Card List -->
         <div class="application-cards" id="applicationCards"></div>
 
+        <!-- Pagination Container for Applications -->
+        <div class="pagination-container" id="paginationContainer" style="display: none; margin-top: 20px;">
+          <div class="pagination-info" style="margin-bottom: 12px;">
+            Showing <span id="paginationStart">1</span>–<span id="paginationEnd">10</span> of <span id="paginationTotal">0</span> applications
+          </div>
+          <div class="pagination-controls">
+            <label style="display: inline-flex; align-items: center; gap: 8px;">
+              Rows per page:
+              <select id="rowsPerPageSelect">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
         <!-- Mobile FAB Button -->
         <button class="fab-button" id="fabButton">+</button>
       </section>
@@ -3271,26 +3272,6 @@
         </div>
         <button id="addInterviewBtn" style="background: var(--primary); color: #fff; border: 0; padding: 12px 16px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; width: 100%; font-size: 15px; font-weight: 600; height: 44px; display: none;" class="interview-add-btn pop-up-btn">+ Add Interview</button>
 
-        <!-- Pagination Container for Interviews -->
-        <div class="pagination-container" id="interviewPaginationContainer" style="display: none;">
-          <div class="pagination-info" style="margin-bottom: 12px;">
-            Showing <span id="interviewPaginationStart">1</span>–<span id="interviewPaginationEnd">10</span> of <span id="interviewPaginationTotal">0</span> interviews
-          </div>
-          <div class="pagination-controls">
-            <label style="display: inline-flex; align-items: center; gap: 8px;">
-              Rows per page:
-              <select id="interviewRowsPerPageSelect">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="200">200</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
         <!-- Desktop Table -->
         <div id="interviewTableContainer" style="overflow-x: auto; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px; display: none;">
           <table class="app-table">
@@ -3313,6 +3294,26 @@
 
         <!-- Mobile Cards -->
         <div id="interviewCardsContainer" class="interview-cards" style="display: none; flex-direction: column; gap: 12px; margin-bottom: 24px;"></div>
+
+        <!-- Pagination Container for Interviews -->
+        <div class="pagination-container" id="interviewPaginationContainer" style="display: none; margin-top: 20px;">
+          <div class="pagination-info" style="margin-bottom: 12px;">
+            Showing <span id="interviewPaginationStart">1</span>–<span id="interviewPaginationEnd">10</span> of <span id="interviewPaginationTotal">0</span> interviews
+          </div>
+          <div class="pagination-controls">
+            <label style="display: inline-flex; align-items: center; gap: 8px;">
+              Rows per page:
+              <select id="interviewRowsPerPageSelect">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+              </select>
+            </label>
+          </div>
+        </div>
 
         <!-- FAB Button for Mobile -->
         <button id="interviewFabBtn" class="interview-fab-button" style="display: none; position: fixed; bottom: 70px; right: 16px; width: 56px; height: 56px; background: var(--primary); border-radius: 50%; border: 0; color: white; font-size: 24px; cursor: pointer; z-index: 150; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">+</button>
@@ -3344,25 +3345,6 @@
           <button id="addOfferBtn" class="pop-up-btn" style="padding: 14px 32px; font-size: 16px; font-weight: 600; flex: 1; max-width: 250px;">+ Add Offer</button>
         </div>
 
-        <div class="pagination-container" id="offerPaginationContainer" style="display: none;">
-          <div class="pagination-info">
-            Showing <span id="offerPaginationStart">1</span>–<span id="offerPaginationEnd">10</span> of <span id="offerPaginationTotal">0</span> offers
-          </div>
-          <div class="pagination-controls">
-            <label style="display: inline-flex; align-items: center; gap: 8px;">
-              Rows per page:
-              <select id="offerRowsPerPageSelect" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: #000; color: #fff; font-size: 14px; cursor: pointer;">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="200">200</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
         <div class="table-container" style="overflow-x: auto; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px;">
           <table class="app-table">
             <thead>
@@ -3390,6 +3372,26 @@
 
         <!-- Mobile Card List -->
         <div class="offer-cards" id="offerCards"></div>
+
+        <!-- Pagination Container for Offers -->
+        <div class="pagination-container" id="offerPaginationContainer" style="display: none; margin-top: 20px;">
+          <div class="pagination-info">
+            Showing <span id="offerPaginationStart">1</span>–<span id="offerPaginationEnd">10</span> of <span id="offerPaginationTotal">0</span> offers
+          </div>
+          <div class="pagination-controls">
+            <label style="display: inline-flex; align-items: center; gap: 8px;">
+              Rows per page:
+              <select id="offerRowsPerPageSelect" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: #000; color: #fff; font-size: 14px; cursor: pointer;">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+              </select>
+            </label>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="companies-section">
@@ -3462,25 +3464,6 @@
           <button id="clearCompanyFiltersBtn" class="secondary" style="background: transparent; color: var(--text-primary); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; cursor: pointer;">Clear Filters</button>
         </div>
 
-        <div class="pagination-container" id="companyPaginationContainer" style="display: none;">
-          <div class="pagination-info">
-            Showing <span id="companyPaginationStart">1</span>–<span id="companyPaginationEnd">10</span> of <span id="companyPaginationTotal">0</span> companies
-          </div>
-          <div class="pagination-controls">
-            <label style="display: inline-flex; align-items: center; gap: 8px;">
-              Rows per page:
-              <select id="companyRowsPerPageSelect" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: #000; color: #fff; font-size: 14px; cursor: pointer;">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="200">200</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
         <!-- Compare Companies Banner -->
         <div id="compareCompanyBanner" style="background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 24px;">
           <div style="display: flex; align-items: center; gap: 12px; justify-content: space-between;" id="compareBannerContent">
@@ -3525,6 +3508,26 @@
           <div class="empty-state-text">No companies yet</div>
         </div>
 
+        <!-- Pagination Container for Companies -->
+        <div class="pagination-container" id="companyPaginationContainer" style="display: none; margin-top: 20px;">
+          <div class="pagination-info">
+            Showing <span id="companyPaginationStart">1</span>–<span id="companyPaginationEnd">10</span> of <span id="companyPaginationTotal">0</span> companies
+          </div>
+          <div class="pagination-controls">
+            <label style="display: inline-flex; align-items: center; gap: 8px;">
+              Rows per page:
+              <select id="companyRowsPerPageSelect" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: #000; color: #fff; font-size: 14px; cursor: pointer;">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
         <!-- Comparison Panel (hidden by default) -->
       </section>
 
@@ -3546,25 +3549,6 @@
           </select>
           <button id="addDocumentBtn" class="pop-up-btn" style="background: var(--primary); color: #fff; border: 0; padding: 8px 16px; border-radius: 8px; cursor: pointer;">+ Add Document</button>
           <button id="clearDocumentFiltersBtn" class="secondary" style="background: transparent; color: var(--text-primary); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; cursor: pointer;">Clear Filters</button>
-        </div>
-
-        <div class="pagination-container" id="documentPaginationContainer" style="display: none;">
-          <div class="pagination-info">
-            Showing <span id="documentPaginationStart">1</span>–<span id="documentPaginationEnd">10</span> of <span id="documentPaginationTotal">0</span> documents
-          </div>
-          <div class="pagination-controls">
-            <label style="display: inline-flex; align-items: center; gap: 8px;">
-              Rows per page:
-              <select id="documentRowsPerPageSelect" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: #000; color: #fff; font-size: 14px; cursor: pointer;">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="200">200</option>
-              </select>
-            </label>
-          </div>
         </div>
 
         <!-- Documents Table -->
@@ -3592,6 +3576,26 @@
         <div id="documentEmptyState" class="empty-state" style="display: none;">
           <div class="empty-state-icon">📄</div>
           <div class="empty-state-text">No documents yet</div>
+        </div>
+
+        <!-- Pagination Container for Documents -->
+        <div class="pagination-container" id="documentPaginationContainer" style="display: none; margin-top: 20px;">
+          <div class="pagination-info">
+            Showing <span id="documentPaginationStart">1</span>–<span id="documentPaginationEnd">10</span> of <span id="documentPaginationTotal">0</span> documents
+          </div>
+          <div class="pagination-controls">
+            <label style="display: inline-flex; align-items: center; gap: 8px;">
+              Rows per page:
+              <select id="documentRowsPerPageSelect" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: #000; color: #fff; font-size: 14px; cursor: pointer;">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+              </select>
+            </label>
+          </div>
         </div>
       </section>
 
@@ -3633,26 +3637,6 @@
           <button id="clearResumePointFiltersBtn" class="secondary">Clear Filters</button>
         </div>
 
-        <!-- Pagination Container for Resume Points -->
-        <div class="pagination-container" id="resumePointPaginationContainer" style="display: none;">
-          <div class="pagination-info">
-            Showing <span id="resumePointPaginationStart">1</span>–<span id="resumePointPaginationEnd">10</span> of <span id="resumePointPaginationTotal">0</span> points
-          </div>
-          <div class="pagination-controls">
-            <label style="display: inline-flex; align-items: center; gap: 8px;">
-              Rows per page:
-              <select id="resumePointRowsPerPageSelect">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="200">200</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
         <div id="resumePointCardsContainer" style="display: none; margin-bottom: 24px;"></div>
         <div style="overflow-x: auto; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px;">
           <table class="app-table">
@@ -3675,6 +3659,26 @@
           <div id="resumePointEmptyState" class="empty-state" style="display: none;">
             <div class="empty-state-icon">⭐</div>
             <div class="empty-state-text">No resume points yet</div>
+          </div>
+        </div>
+
+        <!-- Pagination Container for Resume Points -->
+        <div class="pagination-container" id="resumePointPaginationContainer" style="display: none; margin-top: 20px;">
+          <div class="pagination-info">
+            Showing <span id="resumePointPaginationStart">1</span>–<span id="resumePointPaginationEnd">10</span> of <span id="resumePointPaginationTotal">0</span> points
+          </div>
+          <div class="pagination-controls">
+            <label style="display: inline-flex; align-items: center; gap: 8px;">
+              Rows per page:
+              <select id="resumePointRowsPerPageSelect">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+              </select>
+            </label>
           </div>
         </div>
       </section>
